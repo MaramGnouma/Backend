@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Forget Password</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        background: url("https://maisondherbes.com/wp-content/uploads/2018/02/israel-palacio-463979.jpg");
+      }
+
+      h1 {
+        margin-top: 150px;
+        color: #efeeee;
+        text-align: center;
+      }
+      h4 {
+        color: #f3e6e6;
+        text-align: center;
+      }
+      form {
+        max-width: 400px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        background-color: #183e1f;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #183e1f;
+      }
+
+      /* Optional styles for the confirmation popup */
+      .confirmation-popup {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 9999;
+      }
+
+      .confirmation-popup p {
+        margin-bottom: 10px;
+      }
+
+      .confirmation-popup button {
+        padding: 8px 16px;
+        background-color: #183e1f;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .confirmation-popup button:hover {
+        background-color: #183e1f;
+      }
+
+      /* Added styles for background overlay */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Adjust opacity as needed */
+        z-index: 9998; /* Ensure the overlay is below the popup */
+      }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêcher le comportement par défaut du formulaire
+
+        var newPassword = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm-password").value;
+
+        // Vérifiez si les champs de mot de passe sont vides
+        if (!newPassword || !confirmPassword) {
+            alert("Please fill in both password fields.");
+            return;
+        }
+
+        // Vérifie si le mot de passe et la confirmation du mot de passe correspondent
+        if (newPassword !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        // Afficher une SweetAlert pour confirmer le changement de mot de passe
+        Swal.fire({
+            icon: 'success',
+            title: 'Password Changed Successfully',
+            showConfirmButton: false,
+            timer: 1500 // Ferme automatiquement la boîte de dialogue après 1,5 seconde
+        }).then(function() {
+            // Rediriger vers la page de connexion après la vérification
+            redirectToLogin();
+        });
+    });
+
+    function redirectToLogin() {
+        window.location.href = "http://localhost:4200/login";
+    }
+});
+
+    </script>
+  </head>
+  <body>
+    <h1>Reset your password!</h1>
+    <h4>Enter a new password for <%= email %></h4>
+    <form action="" method="post">
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="Enter New Password"
+      /><br />
+      <input
+        type="password"
+        name="confirm-password"
+        id="confirm-password"
+        placeholder="Confirm New Password"
+      /><br />
+      <input type="submit" value="submit" />
+    </form>
+  </body>
+</html>
